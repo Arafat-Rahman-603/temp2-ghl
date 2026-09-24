@@ -14,13 +14,13 @@ const PARTNERS = [
 
 export function HomeTrustedBySection() {
   return (
-    <section className="py-10 border-b border-gray-100 bg-white overflow-hidden relative">
+    <section className="py-10 border-b border-gray-800 bg-ink-900 overflow-hidden relative">
       <div className="container-page mb-10 flex items-center justify-center gap-4">
-        <div className="h-px bg-gray-200 flex-1 max-w-[100px] hidden sm:block"></div>
-        <p className="text-center text-sm font-medium tracking-widest text-neutral-400 uppercase">
+        <div className="h-px bg-gray-700 flex-1 max-w-[100px] hidden sm:block"></div>
+        <p className="text-center text-sm font-medium tracking-widest text-gray-400 uppercase">
           Trusted by growing agencies and businesses
         </p>
-        <div className="h-px bg-gray-200 flex-1 max-w-[100px] hidden sm:block"></div>
+        <div className="h-px bg-gray-700 flex-1 max-w-[100px] hidden sm:block"></div>
       </div>
 
       {/* Marquee Wrapper */}
@@ -40,8 +40,8 @@ export function HomeTrustedBySection() {
               key={`${partner.name}-${index}`}
               className="flex items-center gap-3 opacity-40 hover:opacity-100 transition-opacity duration-300 grayscale hover:grayscale-0 cursor-default"
             >
-              <div className="text-neutral-900">{partner.icon}</div>
-              <span className="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900">
+              <div className="text-white">{partner.icon}</div>
+              <span className="text-xl sm:text-2xl font-bold tracking-tight text-white">
                 {partner.name}
               </span>
             </div>

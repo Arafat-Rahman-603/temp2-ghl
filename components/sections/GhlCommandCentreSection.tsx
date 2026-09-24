@@ -43,13 +43,24 @@ export function GhlCommandCentreSection() {
     <>
       <section
         ref={containerRef}
-        className="py-16 md:py-20 border-b border-gray-200 overflow-hidden relative"
+        className="py-4 md:py-4 border-b border-gray-200 overflow-hidden relative"
         style={{ backgroundColor: "#f5f4f0" }}
         aria-labelledby="command-centre-heading"
       >
+        {/* Subtle Light Grid Background */}
+        <div 
+          className="absolute inset-0 z-0 pointer-events-none opacity-[0.04]" 
+          style={{ 
+            backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', 
+            backgroundSize: '40px 40px',
+            maskImage: 'linear-gradient(to bottom, white 40%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, white 40%, transparent 100%)'
+          }} 
+        />
       <div className="container-page relative z-10">
+        
         {/* Header Badges */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-10">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-2">
           <h2
             id="command-centre-heading"
             className="text-xs font-bold tracking-[0.15em] uppercase text-gray-500"
@@ -104,42 +115,22 @@ export function GhlCommandCentreSection() {
                     d={pathD}
                     fill="none"
                     stroke={sat.lineCol}
-                    strokeWidth="2"
-                    strokeOpacity="0.6"
+                    strokeWidth="2.5"
+                    strokeOpacity="0.8"
                     initial={{ pathLength: 0 }}
                     animate={isInView ? { pathLength: 1 } : { pathLength: 0 }}
-                    transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 + i * 0.1 }}
+                    transition={{ duration: 1.5, ease: "easeInOut", delay: 0.2 + i * 0.1 }}
                   />
                   
-                  {/* Connector dots near center */}
+                  {/* Connector dots near center (animated pulse) */}
                   <motion.circle
-                    cx={startX + (isLeft ? -15 : 15)}
+                    cx={startX + (isLeft ? -20 : 20)}
                     cy={CENTER.y}
-                    r="3"
-                    fill="#111827"
-                    initial={{ scale: 0 }}
-                    animate={isInView ? { scale: 1 } : { scale: 0 }}
-                    transition={{ duration: 0.4, delay: 0.8 + i * 0.1 }}
-                  />
-                  <motion.circle
-                    cx={startX + (isLeft ? -30 : 30)}
-                    cy={CENTER.y}
-                    r="2.5"
-                    fill="#111827"
-                    fillOpacity="0.6"
-                    initial={{ scale: 0 }}
-                    animate={isInView ? { scale: 1 } : { scale: 0 }}
-                    transition={{ duration: 0.4, delay: 0.85 + i * 0.1 }}
-                  />
-                  <motion.circle
-                    cx={startX + (isLeft ? -45 : 45)}
-                    cy={CENTER.y}
-                    r="2"
-                    fill="#111827"
-                    fillOpacity="0.3"
-                    initial={{ scale: 0 }}
-                    animate={isInView ? { scale: 1 } : { scale: 0 }}
-                    transition={{ duration: 0.4, delay: 0.9 + i * 0.1 }}
+                    r="4"
+                    fill={sat.lineCol}
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={isInView ? { scale: [0, 1.5, 1], opacity: [0, 1, 0.8] } : { scale: 0, opacity: 0 }}
+                    transition={{ duration: 0.8, delay: 0.8 + i * 0.1 }}
                   />
                 </g>
               );
@@ -153,8 +144,9 @@ export function GhlCommandCentreSection() {
                   initial={{ opacity: 0, y: 15 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
                   transition={{ duration: 0.6, delay: 0.4 + i * 0.1 }}
+                  className="cursor-pointer"
                 >
-                  {/* Pill Background */}
+                  {/* Pill Background with modern soft shadow */}
                   <rect
                     x={sat.cx - 90}
                     y={sat.cy - 24}
@@ -164,7 +156,7 @@ export function GhlCommandCentreSection() {
                     fill="#ffffff"
                     stroke="#e5e7eb"
                     strokeWidth="1.5"
-                    filter="drop-shadow(0 4px 6px rgba(0,0,0,0.04))"
+                    filter="drop-shadow(0 8px 16px rgba(0,0,0,0.06))"
                   />
                   {/* Colored Icon Circle */}
                   <circle
@@ -203,8 +195,8 @@ export function GhlCommandCentreSection() {
               animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
               transition={{ duration: 0.7, type: "spring", bounce: 0.4 }}
             >
-              {/* Outer glow/border */}
-              <rect
+              {/* Animated Outer glow/border */}
+              <motion.rect
                 x={CENTER.x - 100}
                 y={CENTER.y - 44}
                 width="200"
@@ -213,7 +205,9 @@ export function GhlCommandCentreSection() {
                 fill="none"
                 stroke="#f472b6"
                 strokeWidth="2"
-                strokeOpacity="0.2"
+                strokeOpacity="0.4"
+                animate={{ scale: [1, 1.05, 1], opacity: [0.4, 0.1, 0.4] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               />
               {/* Main Pill */}
               <rect
@@ -222,8 +216,10 @@ export function GhlCommandCentreSection() {
                 width="180"
                 height="72"
                 rx="24"
-                fill="#f472b6"
-                filter="drop-shadow(0 10px 25px rgba(244,114,182,0.3))"
+                fill="#0a0a0a"
+                stroke="#f472b6"
+                strokeWidth="2"
+                filter="drop-shadow(0 12px 24px rgba(244,114,182,0.25))"
               />
               <text
                 x={CENTER.x}
@@ -240,14 +236,14 @@ export function GhlCommandCentreSection() {
               <text
                 x={CENTER.x}
                 y={CENTER.y + 18}
-                fill="#fce7f3"
+                fill="#fbcfe8"
                 fontSize="12"
                 fontWeight="600"
                 textAnchor="middle"
                 letterSpacing="0.05em"
                 opacity="0.9"
               >
-                CORE CRM
+                CORE ENGINE
               </text>
             </motion.g>
 
@@ -274,7 +270,7 @@ export function GhlCommandCentreSection() {
                 <h3 className="text-xs font-bold tracking-[0.15em] uppercase text-gray-400 mb-2">Pipeline · MTD</h3>
                 <div className="flex items-baseline gap-2">
                   <motion.span 
-                    className="text-4xl font-extrabold tracking-tight text-ink-900 font-number"
+                    className="text-4xl font-extrabold tracking-tight text-[#0a0a0a] font-number"
                     initial={{ opacity: 0 }}
                     animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                     transition={{ duration: 1, delay: 1.2 }}
@@ -334,7 +330,7 @@ export function GhlCommandCentreSection() {
                       className="absolute left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-white border-[1.5px] border-green-500 opacity-0 group-hover/point:opacity-100 transition-opacity duration-150" 
                       style={{ bottom: `${d}%`, transform: 'translate(-50%, 50%)' }} 
                     />
-                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-ink-900 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover/point:opacity-100 pointer-events-none whitespace-nowrap transition-all duration-200 translate-y-1 group-hover/point:translate-y-0 z-20 font-medium">
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-[#0a0a0a] text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover/point:opacity-100 pointer-events-none whitespace-nowrap transition-all duration-200 translate-y-1 group-hover/point:translate-y-0 z-20 font-medium">
                       Sep {i + 1}
                     </div>
                   </div>
@@ -350,7 +346,7 @@ export function GhlCommandCentreSection() {
                 <h3 className="text-xs font-bold tracking-[0.15em] uppercase text-gray-400 mb-2">New Leads</h3>
                 <div className="flex items-baseline gap-2">
                   <motion.span 
-                    className="text-4xl font-extrabold tracking-tight text-ink-900 font-number"
+                    className="text-4xl font-extrabold tracking-tight text-[#0a0a0a] font-number"
                     initial={{ opacity: 0 }}
                     animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                     transition={{ duration: 1, delay: 1.3 }}
@@ -375,7 +371,7 @@ export function GhlCommandCentreSection() {
                   animate={isInView ? { height: `${val}%` } : { height: 0 }}
                   transition={{ duration: 0.7, delay: 1.4 + i * 0.03, ease: "easeOut" }}
                 >
-                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 bg-ink-900 text-white text-[10px] py-1 px-1.5 rounded opacity-0 group-hover/bar:opacity-100 pointer-events-none z-20 font-medium transition-all duration-200 translate-y-1 group-hover/bar:translate-y-0">
+                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 bg-[#0a0a0a] text-white text-[10px] py-1 px-1.5 rounded opacity-0 group-hover/bar:opacity-100 pointer-events-none z-20 font-medium transition-all duration-200 translate-y-1 group-hover/bar:translate-y-0">
                       {Math.floor((val / 100) * 24)}
                    </div>
                 </motion.div>
@@ -390,7 +386,7 @@ export function GhlCommandCentreSection() {
                 <h3 className="text-xs font-bold tracking-[0.15em] uppercase text-gray-400 mb-2">Calls Booked</h3>
                 <div className="flex items-baseline gap-2">
                   <motion.span 
-                    className="text-4xl font-extrabold tracking-tight text-ink-900 font-number"
+                    className="text-4xl font-extrabold tracking-tight text-[#0a0a0a] font-number"
                     initial={{ opacity: 0 }}
                     animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                     transition={{ duration: 1, delay: 1.4 }}
@@ -421,7 +417,7 @@ export function GhlCommandCentreSection() {
                     transition={{ duration: 0.4, delay: 1.5 + (i % 7) * 0.04 + Math.floor(i / 7) * 0.04 }}
                   >
                      {status > 0 && (
-                       <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 bg-ink-900 text-white text-[10px] py-1 px-1.5 rounded opacity-0 group-hover/cell:opacity-100 pointer-events-none z-20 whitespace-nowrap font-medium transition-all duration-200 translate-y-1 group-hover/cell:translate-y-0">
+                       <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 bg-[#0a0a0a] text-white text-[10px] py-1 px-1.5 rounded opacity-0 group-hover/cell:opacity-100 pointer-events-none z-20 whitespace-nowrap font-medium transition-all duration-200 translate-y-1 group-hover/cell:translate-y-0">
                           {status === 1 ? '2 calls' : '6 calls'}
                        </div>
                      )}
