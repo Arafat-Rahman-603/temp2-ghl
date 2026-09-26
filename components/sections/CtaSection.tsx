@@ -38,9 +38,15 @@ export function CtaSection({
 
   return (
     <section
-      className="py-16 md:py-24 bg-white border-t border-gray-200 relative overflow-hidden"
+      className="py-16 md:py-24 bg-green-50 border-t border-green-100 relative overflow-hidden"
       aria-labelledby="cta-heading"
     >
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#86efac30_1px,transparent_1px),linear-gradient(to_bottom,#86efac30_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-green-50/50 to-green-50"></div>
+      </div>
+
       <div className="container-page relative z-10 w-full">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16 max-w-6xl mx-auto">
           

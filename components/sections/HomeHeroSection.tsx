@@ -156,15 +156,15 @@ export function HomeHeroSection() {
         </motion.div>
       </div>
       {/* Highlight Video */}
-        <div className="relative w-full max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-2xl my-12 aspect-video bg-black border border-gray-200/50">
-          <iframe 
-            src="https://www.youtube.com/embed/e8wFXikidSM?rel=0"
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowFullScreen
-            className="absolute inset-0 w-full h-full border-0"
-          ></iframe>
-        </div>
+      <div className="relative w-full max-w-7xl mx-auto rounded-2xl overflow-hidden shadow-2xl my-12 aspect-video bg-black border border-gray-200/50">
+        <iframe 
+          src="https://www.youtube.com/embed/e8wFXikidSM?rel=0"
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          allowFullScreen
+          className="absolute inset-0 w-full h-full border-0"
+        ></iframe>
+      </div>
     </section>
   );
 }

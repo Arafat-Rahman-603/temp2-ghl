@@ -439,11 +439,11 @@ export default function HomePage() {
       <HomeIndustries />
       <HomeTestimonials />
       <HomePricingSection />
-      <HomeFaqSection />
       <CtaSection
         heading="Start with a strategy call."
         subheading="Tell us about your business and what you're trying to build. We'll outline a clear implementation plan."
       />
+      <HomeFaqSection />
     </>
   );
 }

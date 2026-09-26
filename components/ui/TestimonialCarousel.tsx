@@ -25,19 +25,29 @@ interface TestimonialCarouselProps {
 
 export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) {
   const swiperRef = useRef<SwiperType>(null);
-  const [isBeginning, setIsBeginning] = React.useState(true);
-  const [isEnd, setIsEnd] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="relative group/carousel px-1 transition-opacity duration-500 opacity-0 min-h-[400px]">
+        {/* Skeleton/Placeholder to prevent layout shift */}
+      </div>
+    );
+  }
+
+  // Duplicate testimonials to ensure infinite loop always has enough cards on both sides
+  const displayTestimonials = [...testimonials, ...testimonials, ...testimonials];
 
   return (
-    <div className="relative group/carousel px-1">
+    <div className="relative group/carousel px-1 transition-opacity duration-500 opacity-100">
       <Swiper
         modules={[Navigation, A11y, Autoplay]}
         onBeforeInit={(swiper) => {
           swiperRef.current = swiper;
-        }}
-        onSlideChange={(swiper) => {
-          setIsBeginning(swiper.isBeginning);
-          setIsEnd(swiper.isEnd);
         }}
         centeredSlides={true}
         loop={true}
@@ -55,10 +65,12 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) 
         }}
         className="w-full !overflow-hidden py-6"
         grabCursor
+        observer={true}
+        observeParents={true}
       >
-        {testimonials.map((testimonial, index) => (
+        {displayTestimonials.map((testimonial, index) => (
           <SwiperSlide
-            key={testimonial.id}
+            key={`${testimonial.id}-${index}`}
             className="!w-[85vw] sm:!w-[450px] lg:!w-[550px] xl:!w-[650px] !h-auto flex"
           >
             {({ isActive }) => {
@@ -69,7 +81,7 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) 
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
-                  transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
+                  transition={{ delay: 0.1, duration: 0.5, ease: "easeOut" }}
                   className="h-full flex w-full relative"
                   style={{ zIndex }}
                 >
@@ -123,8 +135,7 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) 
       <div className="absolute top-1/2 -left-2 md:left-4 -translate-y-1/2 z-40 hidden sm:block">
         <button
           onClick={() => swiperRef.current?.slidePrev()}
-          className={`w-12 h-12 rounded-full bg-white shadow-md border border-neutral-200 flex items-center justify-center text-neutral-900 hover:text-neutral-500 hover:bg-neutral-50 transition-all duration-200 ${isBeginning ? "opacity-0 pointer-events-none" : "opacity-0 group-hover/carousel:opacity-100"
-            }`}
+          className="w-12 h-12 rounded-full bg-white shadow-md border border-neutral-200 flex items-center justify-center text-neutral-900 hover:text-neutral-500 hover:bg-neutral-50 transition-all duration-200 opacity-0 group-hover/carousel:opacity-100"
           aria-label="Previous testimonial"
         >
           <ArrowLeft className="w-5 h-5" />
@@ -133,8 +144,7 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) 
       <div className="absolute top-1/2 -right-2 md:right-4 -translate-y-1/2 z-40 hidden sm:block">
         <button
           onClick={() => swiperRef.current?.slideNext()}
-          className={`w-12 h-12 rounded-full bg-white shadow-md border border-neutral-200 flex items-center justify-center text-neutral-900 hover:text-neutral-500 hover:bg-neutral-50 transition-all duration-200 ${isEnd ? "opacity-0 pointer-events-none" : "opacity-0 group-hover/carousel:opacity-100"
-            }`}
+          className="w-12 h-12 rounded-full bg-white shadow-md border border-neutral-200 flex items-center justify-center text-neutral-900 hover:text-neutral-500 hover:bg-neutral-50 transition-all duration-200 opacity-0 group-hover/carousel:opacity-100"
           aria-label="Next testimonial"
         >
           <ArrowRight className="w-5 h-5" />
